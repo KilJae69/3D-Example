@@ -27,6 +27,7 @@ export default function Shapes() {
           gl={{ antialias: false }}
           dpr={[1, 1.5]}
           camera={{ position: [0, 0, 25], fov: 30, near: 1, far: 40 }}
+          className="size-full"
         />
       </Suspense>
     </div>
