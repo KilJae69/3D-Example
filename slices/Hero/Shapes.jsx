@@ -1,38 +1,40 @@
 "use client";
 
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { ContactShadows, Float, Environment } from "@react-three/drei";
-import { Suspense, useEffect, useRef, useState } from "react";
+// import { Canvas } from "@react-three/fiber";
+import { 
+ // ContactShadows,
+   Float, 
+ //  Environment 
+  } from "@react-three/drei";
+import { Suspense, useEffect, useRef, useState,lazy } from "react";
 import { gsap } from "gsap";
 
-export function Shapes() {
+import { Canvas } from "@react-three/offscreen";
+
+const Scene = lazy(() => import("./scene"));
+const worker = new Worker(new URL("./worker.tsx", import.meta.url), { type: "module" });
+
+
+export default function Shapes() {
   return (
     <div className="row-span-1 row-start-1 -mt-9 aspect-square md:col-span-1 md:col-start-2 md:mt-0">
-      <Canvas
-        className="z-0"
-        shadows
-        gl={{ antialias: false }}
-        dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 25], fov: 30, near: 1, far: 40 }}
-      >
-        <Suspense fallback={null}>
-          <Geometries />
-          <ContactShadows
-            position={[0, -3.5, 0]}
-            opacity={0.65}
-            scale={40}
-            blur={1}
-            far={9}
-          />
-          <Environment preset="studio" />
-        </Suspense>
-      </Canvas>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Canvas
+          worker={worker}
+          fallback={<Scene />}
+          shadows
+          gl={{ antialias: false }}
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 25], fov: 30, near: 1, far: 40 }}
+        />
+      </Suspense>
     </div>
+    
   );
 }
 
-function Geometries() {
+export function Geometries() {
   const geometries = [
     {
       position: [0, 0, 0],

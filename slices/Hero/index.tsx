@@ -5,7 +5,10 @@ import { Content, KeyTextField } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { gsap } from "gsap";
 import Bounded from "@/components/Bounded";
-import { Shapes } from "./Shapes";
+import dynamic from "next/dynamic";
+
+
+const Shapes = dynamic(() => import("@/slices/Hero/Shapes"), { ssr: false });
 
 /**
  * Props for `Hero`.
