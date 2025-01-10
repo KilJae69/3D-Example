@@ -2,6 +2,7 @@
 
 import { Environment, ContactShadows } from "@react-three/drei";
 import {Geometries} from "./Shapes";
+//
 
 const Scene = () => {
     return (
